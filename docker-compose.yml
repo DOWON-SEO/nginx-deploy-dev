@@ -15,6 +15,7 @@ services:
     nginx:
         image: nginx:latest
         entrypoint: ["/etc/nginx/conf/nginx.conf.generate.sh"]
+        command: '/bin/sh -c "while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;""'
         ports:
             - "80:80" # HTTP
             - "443:443" # HTTPS
@@ -23,8 +24,8 @@ services:
         volumes:
             - ./nginx.conf.generate.sh:/etc/nginx/conf/nginx.conf.generate.sh
             - ./nginx.conf.template:/etc/nginx/conf/nginx.conf.template
-            - certs:/etc/letsencrypt
-            - webroot:/var/www/certbot
+            - ./data/certs:/etc/letsencrypt
+            - ./data/webroot:/var/www/certbot
         depends_on:
             - app
         networks:
@@ -32,8 +33,8 @@ services:
     certbot:
         image: certbot/certbot
         volumes:
-            - certs:/etc/letsencrypt
-            - webroot:/var/www/certbot
+            - ./data/certs:/etc/letsencrypt
+            - ./data/webroot:/var/www/certbot
         entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 
 networks:
