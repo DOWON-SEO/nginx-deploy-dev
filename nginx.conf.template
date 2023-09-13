@@ -1,0 +1,14 @@
+server {
+    listen 80;
+    server_name ${SERVER_URL};
+
+    # Docker의 내부 DNS resolver 추가
+    resolver 127.0.0.11;
+
+    location / {
+        proxy_pass http://app:${SERVER_PORT};
+        # proxy_set_header Host $host;
+        # proxy_set_header X-Real-IP $remote_addr;
+        # proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
