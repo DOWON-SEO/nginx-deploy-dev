@@ -2,7 +2,7 @@
 FROM node:14
 
 # 컨테이너 내부에서 내부 앱 디렉토리 설정
-WORKDIR /user/src/app
+WORKDIR /usr/src/app
 
 # 패키지 설치
 COPY package*.json ./
