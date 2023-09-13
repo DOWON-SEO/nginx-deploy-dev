@@ -5,7 +5,9 @@
 #     exit 1
 # fi
 
-domains=(test.evolvelab.dev)
+source .env
+
+domains=($SERVER_URL)
 rsa_key_size=4096
 data_path="./data/certs"
 email="" # Adding a valid address is strongly recommended
