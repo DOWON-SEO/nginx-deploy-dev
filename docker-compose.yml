@@ -1,7 +1,7 @@
 version: "3"
 services:
     # Express 앱 서비스
-    app:
+    test_service:
         build:
             context: . # Dockerfile이 있는 디렉토리
         expose:
@@ -10,9 +10,10 @@ services:
             - .env # .env 파일을 사용하여 환경 변수 설정
         networks:
             - appnet
+            - external
 
     # Nginx 리버스 프록시 서비스
-    nginx:
+    test_nginx:
         image: nginx:latest
         entrypoint: ["/etc/nginx/conf/nginx.conf.generate.sh"]
         command: '/bin/sh -c "while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;""'
@@ -30,7 +31,8 @@ services:
             - app
         networks:
             - appnet
-    certbot:
+            - external
+    test_certbot:
         image: certbot/certbot
         volumes:
             - ./data/certs/conf:/etc/letsencrypt
@@ -39,6 +41,8 @@ services:
 
 networks:
     appnet:
+    shared_network:
+        external: true
 
 volumes:
     certs:
