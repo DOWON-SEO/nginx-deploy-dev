@@ -17,9 +17,8 @@ services:
         image: nginx:latest
         entrypoint: ["/etc/nginx/conf/nginx.conf.generate.sh"]
         command: '/bin/sh -c "while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;""'
-        ports:
-            - "80:80" # HTTP
-            - "443:443" # HTTPS
+        expose:
+            - ${SERVER_PORT}
         env_file:
             - .env
         volumes:
