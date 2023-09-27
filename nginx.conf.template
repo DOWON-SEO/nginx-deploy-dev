@@ -1,11 +1,6 @@
 server {
-    listen ${SERVER_PORT} ssl;
+    listen ${SERVER_PORT};
     server_name ${SERVER_URL};
-
-    ssl_certificate /etc/letsencrypt/live/${SERVER_URL}/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/${SERVER_URL}/privkey.pem;
-    include /etc/letsencrypt/options-ssl-nginx.conf;
-    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
 
     location / {
         proxy_pass http://test_service:${SERVER_PORT};
