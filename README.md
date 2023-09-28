@@ -1,13 +1,14 @@
 # nginx-deploy-dev
 
-**HTTP, HTTPS 프로토콜을 통한 웹 서버의 원활한 배포를 구현한 소스코드**
+**Docker, NGINX 기반으로 웹 서버의 배포를 위한 소스코드**
 
 ### Repository 구성
 
 -   배포를 위한 간단한 Node.js 예제 서버
 -   격리된 환경에서의 프로세스 배포를 위하여 작성된 Docker와 Docker Compose 설정 파일
 -   Nginx를 이용하여 DNS 서버와 연동된 도메인 리버스 프록시 설정
--   Certbot 사용하여 도메인에 대한 Letsencrypt SSL 인증서 발급/자동 갱신 설정
+-   ~~Certbot 사용하여 도메인에 대한 Letsencrypt SSL 인증서 발급/자동 갱신 설정~~
+-   외부 nginx 추가 설정 통해 SSL 인증서 발급 가능
 
 ## Configure
 
@@ -24,9 +25,9 @@ SERVER_PORT=[PORT]
 SERVER_URL=[URL or IP]
 ```
 
-### SSL 인증서 발급
+### ~~SSL 인증서 발급~~
 
-SSL 인증서 발급과 자동 갱신 설정이 가능한 셸 스크립트 파일인 `init-letsencrypt.sh`를 먼저 실행해주어야 합니다. **sudo 권한이 필요합니다.**
+~~SSL 인증서 발급과 자동 갱신 설정이 가능한 셸 스크립트 파일인 `init-letsencrypt.sh`를 먼저 실행해주어야 합니다. **sudo 권한이 필요합니다.**~~
 
 ## Commands
 
@@ -40,7 +41,7 @@ SSL 인증서 발급과 자동 갱신 설정이 가능한 셸 스크립트 파�
 
 ### 배포
 
-`docker compose up -d` - 컨테이너 배포
+`docker compose up` - 컨테이너 배포
 
 `docker compose down` - 컨테이너 중단
 
