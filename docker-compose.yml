@@ -9,7 +9,6 @@ services:
         env_file:
             - .env # .env 파일을 사용하여 환경 변수 설정
         networks:
-            - appnet
             - deployment
 
     # Nginx 리버스 프록시 서비스
@@ -27,11 +26,8 @@ services:
         depends_on:
             - test_service
         networks:
-            - appnet
             - deployment
 
 networks:
-    appnet:
     deployment:
         external: true
-
